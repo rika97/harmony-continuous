@@ -1,14 +1,13 @@
 const hre = require("hardhat");
 
 async function main() {
-    // Get the ContractFactory and Signers here
     const BondingCurveToken = await hre.ethers.getContractFactory("BondingCurveToken");
 
-    // Deploy the contract with the desired parameters
     const initialReservePrice = ethers.utils.parseEther("0.01");
-    const token = await BondingCurveToken.deploy("HarmonyBondingCurveToken", "HBCURVE", initialReservePrice);
+    const scalingFactor = 1000;
 
-    // Wait for the contract to be deployed
+    const token = await BondingCurveToken.deploy("HarmonyBondingCurveToken", "HBCURVE", initialReservePrice, scalingFactor);
+
     await token.deployed();
 
     console.log("BondingCurveToken deployed to:", token.address);
